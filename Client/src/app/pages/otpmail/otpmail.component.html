@@ -1,0 +1,61 @@
+<div *ngIf="isLoading" class="loader-overlay">
+  <div class="loader"></div>
+</div>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="otp-container bg-white p-4 rounded shadow">
+    <h2 class="otp-title text-center mb-4">OTP Login</h2>
+    
+    <!-- Form for sending OTP -->
+    <div *ngIf="!isOtpSent" class="otp-form">
+      <form #emailForm="ngForm" (ngSubmit)="sendOtp()" novalidate>
+        <div class="form-group">
+          <input 
+            [(ngModel)]="email" 
+            name="email" 
+            #emailField="ngModel"
+            class="form-control mb-3" 
+            type="email" 
+            placeholder="Enter your email" 
+            required
+          />
+          <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)" class="text-danger">
+            <div *ngIf="emailField.errors?.['required']">Email is required.</div>
+            <div *ngIf="emailField.errors?.['email']">Invalid email address.</div>
+          </div>
+        </div>
+        <button 
+          type="submit" 
+          [disabled]="emailForm.invalid"
+          class="btn btn-primary btn-block"
+        >
+          Send OTP
+        </button>
+      </form>
+    </div>
+
+    <!-- Form for verifying OTP -->
+    <div *ngIf="isOtpSent" class="otp-form">
+      <form #otpForm="ngForm" (ngSubmit)="verifyOtp()" novalidate>
+        <div class="form-group">
+          <input 
+            [(ngModel)]="otp" 
+            name="otp" 
+            #otpField="ngModel"
+            class="form-control mb-3" 
+            type="text" 
+            placeholder="Enter OTP" 
+            required
+          />
+        </div>
+        <button 
+          type="submit" 
+          [disabled]="otpForm.invalid"
+          class="btn btn-primary btn-block"
+        >
+          Verify OTP
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

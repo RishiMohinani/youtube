@@ -1,0 +1,3 @@
+<app-header *ngIf="urlPath !== 'signUp' && urlPath !== 'login' && urlPath !== 'otp'"></app-header>
+<router-outlet></router-outlet>
+<app-footer *ngIf="urlPath !== 'signUp' && urlPath !== 'login' && urlPath !== 'otp'"></app-footer>
